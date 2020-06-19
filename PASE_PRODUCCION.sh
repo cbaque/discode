@@ -1,0 +1,1 @@
+scp -r dist/browser/* xistirk4vpxw@discode.net:/home/xistirk4vpxw/public_html/app
