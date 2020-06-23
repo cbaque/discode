@@ -33,42 +33,45 @@
           </div>
           <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md=50 fxFlex.lg="50" fxFlex.xl="50">
             <div class="product-detail-content">
-              <a href="javascript:void(0)" [routerLink]="['/']">Back to Shop</a>
-              <h3>{{detailData?.name}}</h3>
-              <div fxLayoutAlign="start center" class="mb-3">
+              <a href="javascript:void(0)" [routerLink]="['/']">Regresar</a>
+              <h3>{{ detailData?.producto }}</h3>
+              <!-- <div fxLayoutAlign="start center" class="mb-3">
                 <div>
                   <a href="javascript:void(0)" class="text-underline" (click)="reviewPopup(detailData)">ADD A REVIEW</a>
                 </div>
-              </div>
-              <div class="product-detail-price">
+              </div> -->
+              <!-- <div class="product-detail-price">
                 <h4 class="accent-color">{{totalPrice | currency:currency}} </h4>
-              </div>
+              </div> -->
               <ul class="no-style mb-4">
-                <li>
-                  <span class="font-medium"> Availablity </span>: 
+                <!-- <li>
+                  <span class="font-medium"> Disponibilidad </span>: 
                     <span *ngIf="detailData?.availablity">In Stocks</span>
                     <span *ngIf="!(detailData?.availablity)">Out Of Stocks</span>
-                </li>
+                </li>-->
                 <li>
-                  <span class="font-medium">Product Code </span>: {{detailData?.product_code}}
-                </li>
+                  <span class="font-medium">Categor&iacute;a </span>: {{ detailData?.categoria }}
+                </li> 
                 <li>
-                  <span class="font-medium">Tags</span>: 
+                  <span class="font-medium">Subcategor&iacute;a </span>: {{ detailData?.subcategoria }}
+                </li>                 
+                <!-- <li>
+                  <span class="font-medium">Subcategor&iacute;a</span>: 
                     <ng-container *ngFor="let tag of detailData.tags">{{tag}}</ng-container>
-                </li>
+                </li> -->
               </ul>
               <div class="short-des">
-                <p>{{detailData?.description}}
+                <p>{{ detailData?.subcategoria }}
                 </p>
               </div>
-              <div class="bullets-points">
+              <!-- <div class="bullets-points">
                 <ul class="bullets-list">
                   <li *ngFor="let feature of detailData?.features">
                     {{feature}}
                   </li>
                 </ul>
-              </div>
-              <div fxLayoutGap="30px" class="mb-3 select-group">
+              </div> -->
+              <!-- <div fxLayoutGap="30px" class="mb-3 select-group">
                 <ng-container *ngIf="type == 'men' || type == 'women'">
                   <mat-form-field>
                     <mat-select class="product-detail-select" placeholder="Color">
@@ -92,20 +95,20 @@
                     </ng-container>
                   </mat-select>
                 </mat-form-field>
-              </div>
-              <div class="mb-4">
+              </div> -->
+              <!-- <div class="mb-4">
                 <a href="javascript:void(0)" class="text-underline" (click)="addToWishlist(detailData)"> Add To Wishlist</a>
-              </div>
+              </div> -->
               <div class="mb-5 detail-btns">
-                <button mat-raised-button color="accent" class="button-lg mr-3" (click)="addToCart(detailData)">Add To Cart</button>
-                <button class="button-lg" mat-raised-button (click)="buyNow(detailData)">Buy Now</button>
+                <button mat-raised-button color="accent" class="button-lg mr-3" (click)="addToCart(detailData)">Agregar al Carrito</button>
+                <button class="button-lg" mat-raised-button (click)="buyNow(detailData)">Cotizar Ahora</button>
               </div>
-              <div fxLayoutAlign="start center">
+              <!-- <div fxLayoutAlign="start center">
                 <div class="mr-3"> <span>Share Now</span></div>
                 <div class="detail-product-share">
                   <embryo-SocialShare></embryo-SocialShare>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>

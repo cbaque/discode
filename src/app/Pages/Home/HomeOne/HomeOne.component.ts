@@ -13,14 +13,14 @@ import { filter } from 'rxjs/operators';
 })
 export class HomeoneComponent implements OnInit, AfterViewChecked{
 
-   blogList              : any;
-   productReviews        : any;
-   productsArray         : any;
-   productsSliderData    : any;
-   newProductsSliderData : any;
+   blogList: any;
+   productReviews: any;
+   productsArray: any;
+   productsSliderData: any;
+   newProductsSliderData: any;
    slideConfig = {
       slidesToShow: 4,
-      slidesToScroll:4,
+      slidesToScroll: 4,
       autoplay: true,
       autoplaySpeed: 2000,
       dots: true,
@@ -30,7 +30,7 @@ export class HomeoneComponent implements OnInit, AfterViewChecked{
             settings: {
                arrows: false,
                slidesToShow: 2,
-               slidesToScroll:1
+               slidesToScroll: 1
             }
          },
          {
@@ -38,7 +38,7 @@ export class HomeoneComponent implements OnInit, AfterViewChecked{
             settings: {
                arrows: false,
                slidesToShow: 2,
-               slidesToScroll:2
+               slidesToScroll: 2
             }
             },
          {
@@ -46,7 +46,7 @@ export class HomeoneComponent implements OnInit, AfterViewChecked{
             settings: {
                arrows: false,
                slidesToShow: 1,
-               slidesToScroll:1
+               slidesToScroll: 1
             }
          }
       ]
@@ -54,7 +54,7 @@ export class HomeoneComponent implements OnInit, AfterViewChecked{
 
    rtlSlideConfig = {
       slidesToShow: 4,
-      slidesToScroll:4,
+      slidesToScroll: 4,
       autoplay: true,
       autoplaySpeed: 2000,
       dots: true,
@@ -65,7 +65,7 @@ export class HomeoneComponent implements OnInit, AfterViewChecked{
             settings: {
                arrows: false,
                slidesToShow: 2,
-               slidesToScroll:1
+               slidesToScroll: 1
             }
          },
          {
@@ -73,7 +73,7 @@ export class HomeoneComponent implements OnInit, AfterViewChecked{
             settings: {
                arrows: false,
                slidesToShow: 2,
-               slidesToScroll:1
+               slidesToScroll: 1
             }
          },
          {
@@ -81,7 +81,7 @@ export class HomeoneComponent implements OnInit, AfterViewChecked{
             settings: {
                arrows: false,
                slidesToShow: 1,
-               slidesToScroll:1
+               slidesToScroll: 1
             }
          }
       ]
@@ -89,7 +89,7 @@ export class HomeoneComponent implements OnInit, AfterViewChecked{
 
    constructor(public embryoService: EmbryoService,
                private prodSrv: ProductosService,
-               private cdRef : ChangeDetectorRef
+               private cdRef: ChangeDetectorRef
       ) {
       this.getFeaturedProducts();
       this.getBlogList();
@@ -102,7 +102,7 @@ export class HomeoneComponent implements OnInit, AfterViewChecked{
    ngOnInit() {
    }
 
-   ngAfterViewChecked() : void {
+   ngAfterViewChecked(): void {
       this.cdRef.detectChanges();
    }
 
@@ -112,7 +112,7 @@ export class HomeoneComponent implements OnInit, AfterViewChecked{
    }
 
    public getBlogList() {
-      this.embryoService.getBlogList().valueChanges().subscribe(res => {this.blogList = res});
+      this.embryoService.getBlogList().valueChanges().subscribe(res => {this.blogList = res; });
    }
 
    public addToCart(value) {
@@ -120,7 +120,7 @@ export class HomeoneComponent implements OnInit, AfterViewChecked{
    }
 
    public getProductRevies() {
-      this.embryoService.getProductReviews().valueChanges().subscribe(res => {this.productReviews = res});
+      this.embryoService.getProductReviews().valueChanges().subscribe( (res: any) => {this.productReviews = res; });
    }
 
    public addToWishlist(value) {
@@ -170,7 +170,7 @@ export class HomeoneComponent implements OnInit, AfterViewChecked{
          case 3:
             this.newProductsSliderData = this.productsArray.accessories;
          break;
-         
+
          default:
             // code...
             break;
