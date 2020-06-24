@@ -33,8 +33,8 @@ export class ProductosService {
     return this.envSer.getQuery<Data>(`/home/productos`);
   }
 
-  public getProductosImages() {
-    return this.envSer.getQuery<Data>(`/home/productos`);
+  public getProductosImages( producto: Number ) {
+    return this.envSer.getQuery<Data>(`/home/productos/images/${ producto }`);
   }
 
 }

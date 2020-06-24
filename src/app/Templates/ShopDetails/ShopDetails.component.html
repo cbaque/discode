@@ -8,19 +8,20 @@
               <div fxFlex.xs="15" fxFlex.sm="15" fxFlex.md="15" fxFlex.lg="15" fxFlex.xl="15">
                 <div class="product-detail-image-gallery pr-4">
                   <mat-grid-list cols="1" rowHeight="1:1" gutterSize="20px">
-                    <mat-grid-tile *ngFor="let img of detailData?.image_gallery; let i=index">
+                    <mat-grid-tile *ngFor="let img of imageGallery | async; let i=index">
                       <div class="product-image-gallery-item">
-                        <a id="{{i}}_img" class="p-link" [ngClass]="{ 'border-active': i === 0 }" href="javascript:void(0)" (mouseenter)="getImagePath(img, i)">
-                          <img [src]="img" alt="">
+                        <a id="{{i}}_img" class="p-link" [ngClass]="{ 'border-active': i === 0 }" href="javascript:void(0)" (mouseenter)="getImagePath(img?.image, i)">
+                          <!-- <img [src]="img" alt=""> -->
+                          <img src="{{IMG}}/{{ img?.image}}" alt="">
                         </a>
                       </div>
                     </mat-grid-tile>
                   </mat-grid-list>
                 </div>
               </div>
-              <div fxFlex.xs="85" fxFlex.sm="85" fxFlex.md="85" fxFlex.lg="85" fxFlex.xl="85" class="relative" *ngIf="mainImgPath">
-                <embryo-ImgZoom 
-                [imgSrc]="mainImgPath" 
+              <div fxFlex.xs="85" fxFlex.sm="85" fxFlex.md="85" fxFlex.lg="85" fxFlex.xl="85" class="relative" *ngIf="imageGallery">
+                <embryo-ImgZoom
+                imgSrc="{{ IMG }}/{{ mainImgPath }}" 
                     imgStyle="width:auto; height:auto;" 
                     resultStyle="background-repeat: no-repeat; z-index: 2; position:absolute;
                                    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);

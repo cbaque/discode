@@ -2,6 +2,11 @@ import { Component, OnInit, Input, OnChanges, Renderer2, ElementRef, ViewChild, 
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import {EmbryoService } from '../../Services/Embryo.service';
+import { ProductosService } from 'src/app/Services/productos.service';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+
+const apiIMG = environment.apiImg;
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -22,16 +27,23 @@ export class ShopDetailsComponent implements OnInit, OnChanges {
    quantityArray: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
    productReviews: any;
 
+   imageGallery: Observable<[]>;
+   IMG: any = apiIMG;
+
    constructor(private route: ActivatedRoute,
                private router: Router,
-               public embryoService: EmbryoService
+               public embryoService: EmbryoService,
+               private prodSrv: ProductosService,
                ) {
       this.embryoService.getProductReviews().valueChanges().subscribe(res => {this.productReviews = res; });
    }
 
    ngOnInit() {
-      this.mainImgPath = this.detailData.image;
-      this.totalPrice  = this.detailData.price;
+      // this.mainImgPath = this.detailData.image;
+      // this.totalPrice  = this.detailData.price;
+      console.log( this.detailData )
+
+      this.imageGallery = this.prodSrv.getProductosImages( this.detailData.id_producto );
 
       this.route.params.subscribe(res => {
          this.type = null;
