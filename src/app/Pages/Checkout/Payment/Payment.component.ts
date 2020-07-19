@@ -2,6 +2,8 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder,FormArray, Validators } from '@angular/forms';
 import { EmbryoService } from '../../../Services/Embryo.service';
 import { Router, NavigationEnd } from '@angular/router';
+import { EmailService } from 'src/app/Pages/Checkout/Payment/email.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-Payment',
@@ -69,7 +71,8 @@ export class PaymentComponent implements OnInit, AfterViewInit{
 
    constructor(public embryoService : EmbryoService, 
                private formGroup : FormBuilder,
-               public router: Router) {
+               public router: Router, 
+               private emailSrv: EmailService) {
 
       this.embryoService.removeBuyProducts();
    }
@@ -80,27 +83,10 @@ export class PaymentComponent implements OnInit, AfterViewInit{
          user_details       : this.formGroup.group({
             first_name         : ['', [Validators.required]],
             last_name          : ['', [Validators.required]],
-            street_name_number : ['', [Validators.required]],
-            apt                : ['', [Validators.required]],
-            zip_code           : ['', [Validators.required]],
             city_state         : ['', [Validators.required]],
             country            : ['', [Validators.required]],
             mobile             : ['', [Validators.required]],
             email              : ['', [Validators.required, Validators.pattern(this.emailPattern)]],
-            share_email        : ['', [Validators.pattern(this.emailPattern)]],
-         }),
-         offers             : this.formGroup.group({
-            discount_code   : [''],
-            card_type       : [1],
-            card_type_offer_name  : [null]
-         }),
-         payment            : this.formGroup.group({
-            card_number     : ['', [Validators.required]],
-            user_card_name  : ['', [Validators.required]],
-            cvv             : ['', [Validators.required]],
-            expiry_date     : ['', [Validators.required]],
-            card_id         : [1],
-            bank_card_value : [null]
          })
       });
    }
@@ -145,21 +131,25 @@ export class PaymentComponent implements OnInit, AfterViewInit{
 
    public submitPayment() {
       let userDetailsGroup = <FormGroup>(this.paymentFormOne.controls['user_details']);
+      
       if(userDetailsGroup.valid)
       {
-         switch (this.step) {
-            case 0:
-               this.step = 1;
-               this.isDisabledPaymentStepTwo = false;
-               break;
-            case 1:
-               this.step = 2;
-               break;
-            
-            default:
-               // code...
-               break;
-         }
+         let cartProducts = {
+            'cart_products': Object.assign({}, this.embryoService.getCartProducts())
+         };
+         let dataForQuotation = Object.assign(this.paymentFormOne.value, cartProducts);
+
+         this.emailSrv.sendEmail(dataForQuotation).pipe(
+            finalize( () => {  /* this.spinner.hide(); */ })
+         )
+         .subscribe(
+         ( res: any ) => {
+            alert( res );
+            this.paymentFormOne.reset();
+         },
+         ( err: any ) => {
+            alert( 'ERROR :: NO SE PUDO ENVIAR COTIZACION' );
+         });
       } else {
          this.isDisabledPaymentStepTwo = true;
          this.isDisabledPaymentStepThree = true;

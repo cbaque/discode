@@ -97,6 +97,12 @@ export class EmbryoService {
       return this.products;
    }
 
+   public getCartProducts() {
+      let carProducts: any = JSON.parse(localStorage.getItem('cart_item'));
+
+      return carProducts;
+   }
+
    /*
       ----------  Cart Product Function  ----------
    */
