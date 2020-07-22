@@ -73,6 +73,7 @@ export class AddProductComponent implements OnInit {
          image             : this.formBuilder.array([]),
          categoria         : new FormControl('', [ Validators.required ] ),
          subcategoria      : new FormControl('', [ Validators.required ] ),
+         quantity          : 0,
       });
 
 
