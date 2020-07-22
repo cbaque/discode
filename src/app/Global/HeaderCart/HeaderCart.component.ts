@@ -1,4 +1,7 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { environment } from 'src/environments/environment';
+
+const apiIMG = environment.apiImg;
 
 @Component({
    selector: 'embryo-HeaderCart',
@@ -18,6 +21,8 @@ export class HeaderCartComponent implements OnInit, OnChanges {
    @Output() removeProductData : EventEmitter<any> = new EventEmitter();  
 
    hiddenBadge = true;
+
+   IMG: any = apiIMG;
 
    constructor() {
       this.mobWidth = window.screen.width;

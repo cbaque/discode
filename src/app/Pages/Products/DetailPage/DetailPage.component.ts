@@ -34,7 +34,6 @@ export class DetailPageComponent implements OnInit {
 
    public getData() {
       this.prodSrv.getProductossCliente().subscribe( (res: any) => this.checkResponse( res ) );
-
       // this.embryoService.getProducts().valueChanges().subscribe(res => this.checkResponse(res));
    }
 
@@ -42,8 +41,9 @@ export class DetailPageComponent implements OnInit {
    public checkResponse(response) {
       this.productsList = null;
       this.productsList = response[this.type];
+
       for (const data of this.productsList) {
-         if (data.id_producto === this.id) {
+         if (data.id_producto == this.id) {
             this.singleProductData = data;
             break;
          }

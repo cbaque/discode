@@ -55,7 +55,7 @@
                     <div fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
                       <div class="mb-2">
                         <mat-form-field class="w-100">
-                          <input matInput type="text" placeholder="Mobile" formControlName="mobile" required>
+                          <input matInput type="number" placeholder="Mobile" formControlName="mobile" required>
                           <mat-error *ngIf="paymentFormOne.get('user_details.mobile').hasError('required') && paymentFormOne.get('user_details.mobile').touched">This field should not be empty.</mat-error>
                         </mat-form-field>
                       </div>

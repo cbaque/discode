@@ -138,7 +138,7 @@ export class PaymentComponent implements OnInit, AfterViewInit{
             'cart_products': Object.assign({}, this.embryoService.getCartProducts())
          };
          let dataForQuotation = Object.assign(this.paymentFormOne.value, cartProducts);
-
+         console.log(dataForQuotation);
          this.emailSrv.sendEmail(dataForQuotation).pipe(
             finalize( () => {  /* this.spinner.hide(); */ })
          )

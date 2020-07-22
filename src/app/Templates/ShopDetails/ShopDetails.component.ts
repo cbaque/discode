@@ -91,7 +91,7 @@ export class ShopDetailsComponent implements OnInit, OnChanges {
 
    public buyNow(value: any) {
       this.embryoService.buyNow(value);
-      this.router.navigate(['/checkout']);
+      this.router.navigate(['/checkout/payment']);
    }
 
 }

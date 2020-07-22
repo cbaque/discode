@@ -2,6 +2,9 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 
 import { EmbryoService } from '../../Services/Embryo.service';
+import { environment } from 'src/environments/environment';
+
+const apiIMG = environment.apiImg;
 
 @Component({
   selector: 'embryo-PaymentDetailSideBar',
@@ -12,6 +15,8 @@ export class PaymentDetailSideBarComponent implements OnInit {
 
    cartProducts  : any;
    popupResponse : any;
+
+   IMG: any = apiIMG;
 
    constructor(public embryoService: EmbryoService,
                private loadingBar: LoadingBarService) { }

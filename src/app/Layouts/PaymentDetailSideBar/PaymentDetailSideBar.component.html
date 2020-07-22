@@ -22,7 +22,7 @@
           <div class="side-cart-list px-3" *ngFor="let product of embryoService.localStorageCartProducts">
             <div fxLayoutAlign="center center">
                 <div fxFlex.xs="25" fxFlex.sm="25" fxFlex.md="25" fxFlex.lg="25" fxFlex.xl="25">
-                <img [src]="product?.image" width="80" alt="cart img">
+                <img [src]="IMG + '/' + product?.image" width="80" alt="cart img">
               </div>
               <div fxFlex.xs="55" fxFlex.sm="55" fxFlex.md="55" fxFlex.lg="55" fxFlex.xl="55" class="px-3">
                 <h6 class="mb-1">{{product?.name}}</h6>

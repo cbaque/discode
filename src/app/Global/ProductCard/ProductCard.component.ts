@@ -43,7 +43,7 @@ export class ProductCardComponent implements OnInit {
 
    public checkCartAlready(singleProduct) {
       const products = JSON.parse(localStorage.getItem('cart_item')) || [];
-      if (!products.some(( item: any) => item.id === singleProduct.id)) {
+      if (!products.some(( item: any) => item.id_producto === singleProduct.id_producto)) {
          return true;
       }
    }

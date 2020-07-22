@@ -4,6 +4,9 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ChangeDetectorRef } from '@angular/core';
 
 import { EmbryoService } from '../../Services/Embryo.service';
+import { environment } from 'src/environments/environment';
+
+const apiIMG = environment.apiImg;
 
 @Component({
   selector: 'embryo-Cart',
@@ -15,6 +18,8 @@ export class CartComponent implements OnInit, AfterViewChecked {
    products       : any;
    quantityArray  : number[] = [1,2,3,4,5,6,7,8,9,10];
    popupResponse  : any;
+
+   IMG: any = apiIMG;
 
    constructor(public embryoService : EmbryoService, 
                private router: Router,
@@ -79,7 +84,7 @@ export class CartComponent implements OnInit, AfterViewChecked {
 
    public updateLocalCartProduct() {
       this.embryoService.updateAllLocalCartProduct(this.embryoService.localStorageCartProducts);
-      this.router.navigate(['/checkout'])
+      this.router.navigate(['/checkout/payment'])
    }
 
    public getQuantityValue(product) {

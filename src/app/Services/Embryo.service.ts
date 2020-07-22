@@ -49,8 +49,9 @@ export class EmbryoService {
       this.calculateLocalWishlistProdCounts();
       localStorage.removeItem('user');
       localStorage.removeItem('byProductDetails');
+      localStorage.removeItem('cart_item');
 
-      this.db.object('products').valueChanges().subscribe(res => {this.setCartItemDefaultValue(res['gadgets'][1]); });
+      //this.db.object('products').valueChanges().subscribe(res => {this.setCartItemDefaultValue(res['gadgets'][1]); });
    }
 
    public setCartItemDefaultValue(setCartItemDefaultValue) {
@@ -122,18 +123,26 @@ export class EmbryoService {
       };
 
       const found = products.some(function (el, index) {
-         if (el.name === data.name) {
+         if (el.id_producto === data.id_producto) {
+            return  true;
+         }
+         /*if (el.name === data.name) {
             if (!data.quantity) { data.quantity = 1; }
             products[index]['quantity'] = data.quantity;
             return  true;
-         }
+         }*/
       });
-      if (!found) { products.push(data); }
-
-      if (productsLength === products.length) {
+      if (!found) {
+          products.push(data); 
+      }else{
          toastOption.title = 'Product Already Added';
          toastOption.msg = 'You have already added this product to cart list';
       }
+
+      /*if (productsLength === products.length) {
+         toastOption.title = 'Product Already Added';
+         toastOption.msg = 'You have already added this product to cart list';
+      }*/
 
       if (type === 'wishlist') {
          this.removeLocalWishlistProduct(data);
