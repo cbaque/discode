@@ -133,7 +133,7 @@ export class EmbryoService {
          }*/
       });
       if (!found) {
-          data['quantity'] = 1;
+         data['quantity'] = 1;
           products.push(data); 
       }else{
          toastOption.title = 'Product Already Added';
