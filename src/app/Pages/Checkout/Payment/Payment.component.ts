@@ -4,6 +4,7 @@ import { EmbryoService } from '../../../Services/Embryo.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { EmailService } from 'src/app/Pages/Checkout/Payment/email.service';
 import { finalize } from 'rxjs/operators';
+import { ToastaService, ToastaConfig, ToastOptions, ToastData } from 'ngx-toasta';
 
 @Component({
   selector: 'app-Payment',
@@ -72,7 +73,12 @@ export class PaymentComponent implements OnInit, AfterViewInit{
    constructor(public embryoService : EmbryoService, 
                private formGroup : FormBuilder,
                public router: Router, 
-               private emailSrv: EmailService) {
+               private emailSrv: EmailService,
+               private toastyService: ToastaService,
+               private toastyConfig: ToastaConfig) {
+
+      this.toastyConfig.position = 'top-right';
+      this.toastyConfig.theme = 'material';
 
       this.embryoService.removeBuyProducts();
    }
@@ -130,21 +136,41 @@ export class PaymentComponent implements OnInit, AfterViewInit{
    }
 
    public submitPayment() {
-      let userDetailsGroup = <FormGroup>(this.paymentFormOne.controls['user_details']);
+      let userDetailsGroup = <FormGroup>(this.paymentFormOne.controls['user_details']);      
       
       if(userDetailsGroup.valid)
       {
+         const toastOptionWait: ToastOptions = {
+            title: 'Solicitud de cotización',
+            msg: 'Enviando correo para solicitud de cotización',
+            theme: 'material'
+         };
+
+         this.toastyService.wait(toastOptionWait);
+
          let cartProducts = {
             'cart_products': Object.assign({}, this.embryoService.getCartProducts())
          };
+
          let dataForQuotation = Object.assign(this.paymentFormOne.value, cartProducts);
-         console.log(dataForQuotation);
+         
          this.emailSrv.sendEmail(dataForQuotation).pipe(
             finalize( () => {  /* this.spinner.hide(); */ })
          )
          .subscribe(
          ( res: any ) => {
-            alert( res );
+            this.toastyService.clearAll();
+
+            const toastOptionSuccess: ToastOptions = {
+               title: 'Solicitud de cotización',
+               msg: res,
+               theme: 'material'
+            };
+
+            this.toastyService.success(toastOptionSuccess);
+            localStorage.removeItem('cart_item');
+            localStorage.setItem('cart_item', null);
+            this.embryoService.calculateLocalCartProdCounts();
             this.paymentFormOne.reset();
          },
          ( err: any ) => {
