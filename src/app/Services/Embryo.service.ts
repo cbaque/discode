@@ -133,6 +133,7 @@ export class EmbryoService {
          }*/
       });
       if (!found) {
+          data['quantity'] = 1;
           products.push(data); 
       }else{
          toastOption.title = 'Product Already Added';
@@ -147,7 +148,7 @@ export class EmbryoService {
       if (type === 'wishlist') {
          this.removeLocalWishlistProduct(data);
       }
-
+      
       this.toastyService.wait(toastOption);
       setTimeout(() => {
          localStorage.setItem('cart_item', JSON.stringify(products));
@@ -422,6 +423,13 @@ export class EmbryoService {
       let about_info: any;
       about_info = this.db.object('about_info');
       return about_info;
+   }
+
+   /**
+    * clear cart shop
+    */
+   public clearCartShop() {
+      localStorage.removeItem('cart_item');
    }
 
 }
