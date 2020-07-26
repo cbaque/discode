@@ -217,16 +217,18 @@ const HeaderOneItems= [
   //   ]
   // },
   {
-  state: "pages",
+  // state: "pages",
+  state: "about",
   name: "Quienes Somos",
-  type: "sub",
+  // type: "sub",
+  type: "link",
   icon: "pages",
   children: [
-     {  state: 'about', 
-        name: 'Acerca de',
-        type: 'link',
-        icon: 'arrow_right_alt',
-     },
+    //  {  state: 'about', 
+    //     name: 'Acerca de',
+    //     type: 'link',
+    //     icon: 'arrow_right_alt',
+    //  },
     //  {  state: 'term-condition', 
     //     name: 'TERM AND CONDITION',
     //     type: 'link',
@@ -311,44 +313,44 @@ const HeaderOneItems= [
 ];
 
 const FooterOneItems= [
-  {
-     state:'',
-     name:"ABOUT",
-     type:"sub",
-     icon: '',
-     children: [
-      {  
-         state: 'about', 
-         name: 'ABOUT',
-         type: 'link',
-         icon: 'arrow_right_alt',
-      },
-      // {  
-      //    state: 'term-condition', 
-      //    name: 'TERM AND CONDITION',
-      //    type: 'link',
-      //    icon: 'arrow_right_alt',
-      // },
-      // {  
-      //   state: 'privacy-policy', 
-      //   name: 'PRIVACY POLICY',
-      //   type: 'link',
-      //   icon: 'arrow_right_alt',
-      // },
-      // {  
-      //   state: 'faq', 
-      //   name: 'FAQ',
-      //   type: 'link',
-      //   icon: 'arrow_right_alt',
-      //  },
-      //  {  
-      //    state:'contact',
-      //    name:"CONTACT US",
-      //    type:"link",
-      //    icon: 'perm_contact_calendar',
-      //  }
-    ]
-  }, 
+  // {
+  //    state:'',
+  //    name:"ABOUT",
+  //    type:"sub",
+  //    icon: '',
+  //    children: [
+  //     // {  
+  //     //    state: 'about', 
+  //     //    name: 'ABOUT',
+  //     //    type: 'link',
+  //     //    icon: 'arrow_right_alt',
+  //     // },
+  //     // {  
+  //     //    state: 'term-condition', 
+  //     //    name: 'TERM AND CONDITION',
+  //     //    type: 'link',
+  //     //    icon: 'arrow_right_alt',
+  //     // },
+  //     // {  
+  //     //   state: 'privacy-policy', 
+  //     //   name: 'PRIVACY POLICY',
+  //     //   type: 'link',
+  //     //   icon: 'arrow_right_alt',
+  //     // },
+  //     // {  
+  //     //   state: 'faq', 
+  //     //   name: 'FAQ',
+  //     //   type: 'link',
+  //     //   icon: 'arrow_right_alt',
+  //     //  },
+  //     //  {  
+  //     //    state:'contact',
+  //     //    name:"CONTACT US",
+  //     //    type:"link",
+  //     //    icon: 'perm_contact_calendar',
+  //     //  }
+  //   ]
+  // }, 
   // {
   //   state:'',
   //   name:"SESSION",
