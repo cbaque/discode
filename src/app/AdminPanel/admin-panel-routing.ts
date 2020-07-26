@@ -4,11 +4,11 @@ import { Routes} from '@angular/router';
 import { MainAdminPanelComponent } from './Main/Main.component';
 
 export const AdminPanelRoutes : Routes = [
-   {
-      path : 'admin-panel',
-      redirectTo: 'admin-panel/reports',
-      pathMatch: 'full',
-   }, 
+   // {
+   //    path : 'admin-panel',
+   //    redirectTo: 'admin-panel/reports',
+   //    pathMatch: 'full',
+   // }, 
    {
       path : "admin-panel",
       component : MainAdminPanelComponent,

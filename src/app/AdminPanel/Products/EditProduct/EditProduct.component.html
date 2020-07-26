@@ -45,7 +45,7 @@
                            <h4 class="accent-color edit-text"><input matInput  formControlName="price" type="text"></h4>
                         </div>
                         <!-- product-detail-price -->
-                        <ul class="no-style mb-4">
+                        <!-- <ul class="no-style mb-4">
                            <li class="edit-text" fxLayout="row wrap" fxLayoutAlign="start start">
                               <span class="font-medium"> Availablity </span>: 
                               <input class="ml-2" matInput  formControlName="availablity" type="text">
@@ -58,18 +58,42 @@
                               <span class="font-medium">Tags</span>: 
                               <input class="ml-2" matInput formControlName="tags" type="text">
                            </li>
-                        </ul>
+                        </ul> -->
                         <div class="short-des">
                            <p class="edit-text"><textarea matInput formControlName="description"></textarea></p>
                         </div>
                         <!-- short-des -->
-                        <div class="bullets-points edit-text">
+                        <!-- <div class="bullets-points edit-text">
                            <div class="font-medium">Featured points :</div>
                            <p><input matInput formControlName="features" type="text"></p>
+                        </div> -->
+
+                        <div class="mb-3 select-group">
+                           <mat-form-field>
+                              <mat-label>Categor&iacute;a</mat-label>
+                              <mat-select formControlName="categoria">
+                                <mat-option *ngFor="let categoria of categorias | async" [value]="categoria.id">
+                                  {{ categoria.nombre }}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
                         </div>
+
+                        <div class="mb-3 select-group">
+                           <mat-form-field>
+                              <mat-label>SubCategor&iacute;a</mat-label>
+                              <mat-select formControlName="subcategoria">
+                                <mat-option *ngFor="let subcategoria of subcategorias | async" [value]="subcategoria.id">
+                                  {{ subcategoria.nombre }}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                        </div> 
+
+
                         <!-- bullets-points -->
                         <div class="mb-3 select-group">
-                           <ng-container *ngIf="editProductDetail.type == 'men' || editProductDetail.type == 'women'">
+                           <!-- <ng-container *ngIf="editProductDetail.type == 'men' || editProductDetail.type == 'women'">
                               <div class="edit-text edit-check mb-3">
                                  <div class="font-medium mb-2">Color Varients :</div>
                                  <ng-container *ngFor="let color of colorsArray">
@@ -82,25 +106,31 @@
                                  <mat-checkbox class="mr-3">{{size}}</mat-checkbox>
                                  </ng-container>
                               </div>
-                           </ng-container>
-                           <mat-form-field class="edit-text edit-check mb-3">
+                           </ng-container> -->
+                           <!-- <mat-form-field class="edit-text edit-check mb-3">
                               <div class="font-medium mb-2">Total Products :</div>
                               <ng-container>
                                  <input type="number" matInput value="5"> 
                               </ng-container>
-                           </mat-form-field>
+                           </mat-form-field> -->
+                           <mat-form-field class="add-text edit-check mb-3">
+                              <div class="font-medium mb-2">Cantidad :</div>
+                              <ng-container>
+                                 <input type="number" matInput formControlName="cantidad"> 
+                              </ng-container>
+                           </mat-form-field>                           
                         </div>
                         <div class="mb-5 detail-btns">
-                           <button mat-raised-button color="accent" class="button-lg mr-3">Save</button>
-                           <button class="button-lg" mat-raised-button>Discard</button>
+                           <button mat-raised-button color="accent" class="button-lg mr-3">Guardar</button>
+                           <button class="button-lg" mat-raised-button>Cancelar</button>
                         </div>
                         <!-- detail-btns -->
-                        <div fxLayoutAlign="start center">
+                        <!-- <div fxLayoutAlign="start center">
                            <div class="mr-3"> <span>Share Now</span></div>
                            <div class="detail-product-share">
                            <embryo-SocialShare></embryo-SocialShare>
                          </div>
-                        </div>
+                        </div> -->
                      </div>
                      <!-- product-detail-content -->
                   </div>

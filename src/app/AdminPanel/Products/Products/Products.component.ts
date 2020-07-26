@@ -83,7 +83,8 @@ export class ProductsComponent implements OnInit {
 	  * onEditProduct method is used to open the edit page and edit the product.
 	  */
 	onEditProduct(data){
-		this.router.navigate(['/admin-panel/product-edit',data.type,data.id]);
+
+		this.router.navigate(['/admin-panel/product-edit',data.codigo_categoria,data.id_producto]);
 		this.adminPanelService.editProductData = data;
 	}
 

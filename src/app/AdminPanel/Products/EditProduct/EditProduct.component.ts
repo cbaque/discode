@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminPanelServiceService } from '../../Service/AdminPanelService.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute, Params }   from '@angular/router';
+import { ListasService } from 'src/app/Services/listas.service';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'app-edit-product',
@@ -20,11 +22,18 @@ export class EditProductComponent implements OnInit {
 	colorsArray   			: string[] = ["Red", "Blue", "Yellow", "Green"];
    sizeArray    			: number[] = [36,38,40,42,44,46,48];
    quantityArray 			: number[] = [1,2,3,4,5,6,7,8,9,10];
+   categorias: Observable<any[]>;
+   subcategorias: Observable<any[]>;
 	
 	constructor(private adminPanelService : AdminPanelServiceService,
 					public formBuilder : FormBuilder,
-					private route: ActivatedRoute,
-               private router: Router) { }
+					private route: ActivatedRoute
+					, private listaSrv: ListasService
+					   , private router: Router) 
+	{ 
+		this.categorias = this.listaSrv.getData( 'SYS_CATEGO' );
+		this.subcategorias = this.listaSrv.getData( 'SYS_SUBCAT' );
+	}
 
 	ngOnInit() {
 		if(this.adminPanelService.editProductData) {
@@ -35,21 +44,29 @@ export class EditProductComponent implements OnInit {
 			},0)
 		}
 
-		this.route.params.subscribe(res => {
-			this.productId = res.id;
-         this.productType = res.type;
-			this.getEditProductDetail();
-      })
+	// 	this.route.params.subscribe(res => {
+	// 		this.productId = res.id;
+    //      this.productType = res.type;
+	// 		this.getEditProductDetail();
+    //   })
 
 	  console.log( this.editProductDetail  )
    	this.form = this.formBuilder.group({
-			name					: [],
+			name				: [ '',  Validators.required  ],
 			price 				: [],
-			availablity   		: [],
-			product_code 		: [],
-			description 		: [],
-			tags					: [],
-			features				: []
+			description 		: [ '', Validators.required ],
+			cantidad          : new FormControl( '', [ Validators.required ] ),
+			// image             : this.formBuilder.array([]),
+			categoria         : new FormControl('', [ Validators.required ] ),
+			subcategoria      : new FormControl('', [ Validators.required ] ),
+			quantity          : 0,
+			// name					: [],
+			// price 				: [],
+			// availablity   		: [],
+			// product_code 		: [],
+			// description 		: [],
+			// tags					: [],
+			// features				: []
 		});
    	this.getProductData();
 	}
@@ -89,13 +106,14 @@ export class EditProductComponent implements OnInit {
 	getProductData(){
 		if(this.editProductDetail){
 			this.form.patchValue({
-				name   		 : this.editProductDetail.name,
-				price 		 : this.editProductDetail.price,
-				availablity  : this.editProductDetail.availablity,
-				product_code : this.editProductDetail.product_code,
-				description  : this.editProductDetail.description,
-				tags			 : this.editProductDetail.tags,
-				features 	 : this.editProductDetail.features
+				name   		 	: this.editProductDetail.producto,
+				price 		 	: this.editProductDetail.precio,
+				description 	: this.editProductDetail.descripcion,
+				cantidad        : this.editProductDetail.stock,
+				// image             : this.formBuilder.array([]),
+				categoria       : this.editProductDetail.id_categoria,
+				subcategoria    : this.editProductDetail.id_subcategoria,
+				quantity        : 0,
 			});
 		}
 	}

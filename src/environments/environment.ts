@@ -1,7 +1,8 @@
 
  export const environment = {
    production: false,
-   apiUrl: 'http://127.0.0.1:8000/api',
+   apiUrl: 'http://discode.net/apilaravel/api',
+   // apiUrl: 'http://127.0.0.1:8000/api',
    apiImg: 'http://discode.net/imgcommerce',
    firebase: {
     	apiKey: "AIzaSyAWIUjgtFYTu7gnOQcHddfXhoA0Te6sAHA",
