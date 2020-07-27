@@ -34,6 +34,7 @@ export class CommonSignInComponent implements OnInit {
   }
 
   public sendLogin(){
+    //Hash MD5
     let md5 = require('md5');
     let dataLoginForm = <FormGroup>(this.loginForm);
     dataLoginForm.value['password'] = md5(dataLoginForm.value['password']);
