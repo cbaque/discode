@@ -10,8 +10,9 @@ import { Router, NavigationEnd } from '@angular/router';
   styleUrls: ['./CommonSignIn.component.scss']
 })
 export class CommonSignInComponent implements OnInit {
-
+  
   loginForm   : FormGroup;
+  invalid_login : boolean;
 
   constructor(private formGroup : FormBuilder,
               private loginSrv: LoginService,
@@ -22,21 +23,28 @@ export class CommonSignInComponent implements OnInit {
       username         : ['', [Validators.required]],
       password          : ['', [Validators.required]],
    });
+   this.invalid_login = false;
   }
 
   public sendLogin(){
-    let dataLoginForm = <FormGroup>(this.loginForm);      
+    let md5 = require('md5');
+    let dataLoginForm = <FormGroup>(this.loginForm);
+    dataLoginForm.value['password'] = md5(dataLoginForm.value['password']);
       
     if(dataLoginForm.valid){
-      this.loginSrv.sendLogin(dataLoginForm).pipe(
+      this.loginSrv.sendLogin(dataLoginForm.value).pipe(
         finalize( () => {  /* this.spinner.hide(); */ })
      )
      .subscribe(
      ( res: any ) => {
+       if(res != "not_login"){
         this.router.navigate(['/admin-panel']);
+       }else{
+         this.invalid_login = true;
+       }
      },
      ( err: any ) => {
-        alert( 'ERROR :: NO SE PUDO ENVIAR COTIZACION' );
+        alert( 'ERROR EN LA PETICION' );
      });
     }
   }
