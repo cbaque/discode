@@ -17,7 +17,7 @@ export class LoginService {
   ) { }
 
   public sendLogin(data: any) {
-    return this.envSer.postQuery<Data>(`/email/send`, data);
+    return this.envSer.postQuery<Data>(`/auth/login`, data);
   }
 
 }

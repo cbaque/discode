@@ -13,6 +13,6 @@
     <mat-checkbox>Remember Me</mat-checkbox>
     <span fxFlex></span> <a [routerLink]="['/session/forgot-password']">Forgot Password?</a>
   </div>[routerLink]="['/admin-panel']-->
-  <button color="accent" class="button-lg mb-3" type="button" mat-raised-button (click)="sendLogin()">Sign In</button>
-  <!--<p>Don't have an account? <a [routerLink]="['/session/signup']">Click here to create one</a></p>-->
+  <p *ngIf="invalid_login">Credenciales inválidas</p>
+  <button color="accent" class="button-lg mb-3" type="button" mat-raised-button (click)="sendLogin()">Sign In</button>  
 </form>
