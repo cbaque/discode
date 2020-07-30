@@ -175,7 +175,8 @@ export class EditProductComponent implements OnInit {
 		// console.log( this.form.value.image.filter( (x: any ) => x.image !== 'https://via.placeholder.com/625x800' ) );
   
 		this.form.value.image = this.form.value.image.filter( (x: any ) => x.image !== 'https://via.placeholder.com/625x800' );
-
+		this.form.value.image = this.form.value.image.filter( (x: any ) => x.image.indexOf("imgcommerce") == -1 );
+		
 		this.dataSrv.editProducto( this.form.value )
 		.pipe(
 		   finalize( () => {  /* this.spinner.hide(); */ })
