@@ -63,12 +63,11 @@ export class EditProductComponent implements OnInit {
 		if(this.adminPanelService.editProductData) {
 			this.editProductDetail = this.adminPanelService.editProductData;
 			
-			setTimeout(()=>{
-				this.mainImgPath = this.editProductDetail.image;
-			},0)
+			// setTimeout(()=>{
+			// 	this.mainImgPath = this.editProductDetail.image;
+			// },0)
 		}
 
-	  	console.log( this.editProductDetail  )
 		this.form = this.formBuilder.group({
 				id_producto					: [ '',  Validators.required  ],
 				name				: [ '',  Validators.required  ],
@@ -89,32 +88,47 @@ export class EditProductComponent implements OnInit {
 			});
 		this.getProductData();
 
-		this.mainImgPath = this.data[0].image;
+		this.mainImgPath = this.IMG + '/' + this.editProductDetail.image;
 
 		this.arrayImages = this.form.get('image') as FormArray;
 
-		this.imageGallery = this.dataSrv.getProductosImages( this.editProductDetail.id_producto );
-		
-		this.dataSrv.getProductosImages( this.editProductDetail.id_producto ).forEach(element => {
-			element.forEach(element2 => {
-				this.arrayImages.push(
-					this.formBuilder.group({ image: element2 })
-				);	
-			});
-		});
+		this.data[0].image_gallery.forEach(element => {
+			this.arrayImages.push(
+			   this.formBuilder.group({ image: element })
+			);
+		 });
 
-		console.log(this.arrayImages);
+
+		this.dataSrv.getProductosImages( this.editProductDetail.id_producto )
+		.subscribe( (res: any) => {
+			res.forEach( (element: any, index: number) => {
+				// this.arrayImages[index].push(this.formBuilder.group({ image: this.IMG + '/' + element.image }));
+
+				this.arrayImages.controls[index].patchValue( { image: this.IMG + '/' + element.image } );
+			})
+		})
+		// this.imageGallery = this.dataSrv.getProductosImages( this.editProductDetail.id_producto );
+		
+		// this.dataSrv.getProductosImages( this.editProductDetail.id_producto ).forEach(element => {
+		// 	element.forEach(element2 => {
+		// 		this.arrayImages.push(
+		// 			this.formBuilder.group({ image: element2 })
+		// 		);	
+		// 	});
+		// });
+
+		// console.log(this.arrayImages);
 		
 	}
 
 	/**
     * getImagePath is used to change the image path on click event. 
     */
-   public getImagePath(imgPath: string, index:number) {
-      document.querySelector('.border-active').classList.remove('border-active');
-      this.mainImgPath = imgPath;
-      document.getElementById(index+'_img').className += " border-active";
-   }
+	public getImagePath(imgPath: string, index: number) {
+		document.querySelector('.border-active').classList.remove('border-active');
+		this.mainImgPath = imgPath;
+		document.getElementById(index + '_img').className += ' border-active';
+	}
 
    //getEditProductDetail method is used to get the edit product.
 	public getEditProductDetail() {

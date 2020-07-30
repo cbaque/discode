@@ -85,6 +85,8 @@ export class AddProductComponent implements OnInit {
          );
       });
 
+      console.log(this.arrayImages )
+
    }
 
    // onUpload() {

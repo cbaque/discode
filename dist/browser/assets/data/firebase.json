@@ -195,14 +195,14 @@
    },
    "mission_vision": [{
          "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat quibusdam cum blanditiis voluptas, voluptates hic eius maxime dolorum saepe quae animi eveniet nulla dolor dicta laborum unde molestias ab magni.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat quibusdam cum blanditiis voluptas, voluptates hic eius maxime dolorum saepe quae animi eveniet nulla dolor dicta laborum unde molestias ab magni.",
-         "heading": "Our Mission",
+         "heading": "Misi&oacute;n",
          "id": "1",
          "image": "assets/images/our-mission.jpg",
          "sub_heading": "nulla dolor dicta laborum unde molestias ab magni.Lorem ipsum dolor sit amet,consectetur adipisicing elit"
       },
       {
          "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat quibusdam cum blanditiis voluptas, voluptates hic eius maxime dolorum saepe quae animi eveniet nulla dolor dicta laborum unde molestias ab magni.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat quibusdam cum blanditiis voluptas, voluptates hic eius maxime dolorum saepe quae animi eveniet nulla dolor dicta laborum unde molestias ab magni.",
-         "heading": "Our Vision",
+         "heading": "Visi&oacute;n",
          "id": "2",
          "image": "assets/images/our-vision.jpg",
          "sub_heading": "nulla dolor dicta laborum unde molestias ab magni.Lorem ipsum dolor sit amet,consectetur adipisicing elit"
