@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminPanelServiceService } from '../../Service/AdminPanelService.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute, Params }   from '@angular/router';
 import { ListasService } from 'src/app/Services/listas.service';
 import { Observable } from 'rxjs';
+import { ProductosService } from 'src/app/Services/productos.service';
+import { finalize } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+
+const apiIMG = environment.apiImg;
 
 @Component({
 	selector: 'app-edit-product',
@@ -20,16 +25,35 @@ export class EditProductComponent implements OnInit {
 	showStatus    			: boolean;
 	form			  			: FormGroup;
 	colorsArray   			: string[] = ["Red", "Blue", "Yellow", "Green"];
-   sizeArray    			: number[] = [36,38,40,42,44,46,48];
-   quantityArray 			: number[] = [1,2,3,4,5,6,7,8,9,10];
-   categorias: Observable<any[]>;
-   subcategorias: Observable<any[]>;
+	sizeArray    			: number[] = [36,38,40,42,44,46,48];
+	quantityArray 			: number[] = [1,2,3,4,5,6,7,8,9,10];
+	categorias: Observable<any[]>;
+	subcategorias: Observable<any[]>;
+	filesToUpload: Array<File> = [];
+	arrayImages: FormArray;
+	IMG: any = apiIMG;
+
+   data: any = [
+		{
+			image: 'https://via.placeholder.com/625x800',
+			image_gallery: [
+				'https://via.placeholder.com/625x800',
+				'https://via.placeholder.com/625x800',
+				'https://via.placeholder.com/625x800',
+				'https://via.placeholder.com/625x800',
+				'https://via.placeholder.com/625x800'
+			]
+		}
+	 ];
+	 
+	imageGallery: Observable<[]>;
 	
 	constructor(private adminPanelService : AdminPanelServiceService,
 					public formBuilder : FormBuilder,
 					private route: ActivatedRoute
 					, private listaSrv: ListasService
-					   , private router: Router) 
+					   , private router: Router
+					   ,private dataSrv: ProductosService) 
 	{ 
 		this.categorias = this.listaSrv.getData( 'SYS_CATEGO' );
 		this.subcategorias = this.listaSrv.getData( 'SYS_SUBCAT' );
@@ -44,31 +68,43 @@ export class EditProductComponent implements OnInit {
 			},0)
 		}
 
-	// 	this.route.params.subscribe(res => {
-	// 		this.productId = res.id;
-    //      this.productType = res.type;
-	// 		this.getEditProductDetail();
-    //   })
+	  	console.log( this.editProductDetail  )
+		this.form = this.formBuilder.group({
+				id_producto					: [ '',  Validators.required  ],
+				name				: [ '',  Validators.required  ],
+				price 				: [],
+				description 		: [ '', Validators.required ],
+				cantidad          : new FormControl( '', [ Validators.required ] ),
+				image             : this.formBuilder.array([]),
+				categoria         : new FormControl('', [ Validators.required ] ),
+				subcategoria      : new FormControl('', [ Validators.required ] ),
+				quantity          : 0,
+				// name					: [],
+				// price 				: [],
+				// availablity   		: [],
+				// product_code 		: [],
+				// description 		: [],
+				// tags					: [],
+				// features				: []
+			});
+		this.getProductData();
 
-	  console.log( this.editProductDetail  )
-   	this.form = this.formBuilder.group({
-			name				: [ '',  Validators.required  ],
-			price 				: [],
-			description 		: [ '', Validators.required ],
-			cantidad          : new FormControl( '', [ Validators.required ] ),
-			// image             : this.formBuilder.array([]),
-			categoria         : new FormControl('', [ Validators.required ] ),
-			subcategoria      : new FormControl('', [ Validators.required ] ),
-			quantity          : 0,
-			// name					: [],
-			// price 				: [],
-			// availablity   		: [],
-			// product_code 		: [],
-			// description 		: [],
-			// tags					: [],
-			// features				: []
+		this.mainImgPath = this.data[0].image;
+
+		this.arrayImages = this.form.get('image') as FormArray;
+
+		this.imageGallery = this.dataSrv.getProductosImages( this.editProductDetail.id_producto );
+		
+		this.dataSrv.getProductosImages( this.editProductDetail.id_producto ).forEach(element => {
+			element.forEach(element2 => {
+				this.arrayImages.push(
+					this.formBuilder.group({ image: element2 })
+				);	
+			});
 		});
-   	this.getProductData();
+
+		console.log(this.arrayImages);
+		
 	}
 
 	/**
@@ -106,6 +142,7 @@ export class EditProductComponent implements OnInit {
 	getProductData(){
 		if(this.editProductDetail){
 			this.form.patchValue({
+				id_producto		: this.editProductDetail.id_producto,
 				name   		 	: this.editProductDetail.producto,
 				price 		 	: this.editProductDetail.precio,
 				description 	: this.editProductDetail.descripcion,
@@ -117,4 +154,46 @@ export class EditProductComponent implements OnInit {
 			});
 		}
 	}
+
+	public editProducto( ev: any ) {
+
+		// this.spinner.show();
+		// console.log( this.form.value.image.filter( (x: any ) => x.image !== 'https://via.placeholder.com/625x800' ) );
+  
+		this.form.value.image = this.form.value.image.filter( (x: any ) => x.image !== 'https://via.placeholder.com/625x800' );
+
+		this.dataSrv.editProducto( this.form.value )
+		.pipe(
+		   finalize( () => {  /* this.spinner.hide(); */ })
+		)
+		.subscribe(
+		( res: any ) => {
+		   alert( res );
+		   this.form.reset();
+		},
+		( err: any ) => {
+		   alert( 'ERROR :: NO SE PUDO GUARDAR EL PRODUCTO' );
+		});
+	}
+
+	addingFiles(e: any, i: number) {
+
+		const image = e.target.files[0];
+  
+		const reader = new FileReader();
+  
+		reader.readAsDataURL( image );
+  
+		reader.onload = () => {
+		   this.mainImgPath = reader.result as string;
+		   this.arrayImages.controls[i].patchValue( { image: reader.result } );
+		   // this.arrayImages.push(
+		   //    this.formBuilder.group({ image: reader.result })
+		   // );
+		   // this.form.patchValue({
+		   //   image: reader.result
+		   // });
+		};
+  
+	 }
 }
