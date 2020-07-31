@@ -6,7 +6,7 @@
           <div class="mb-3"> <i class="material-icons">
               shopping_cart
             </i></div>
-          <h5 *ngIf="(embryoService.localStorageCartProducts && embryoService.localStorageCartProducts.length>0); else elseCartBlock;">You have {{embryoService.localStorageCartProducts.length}} items in your cart</h5>
+          <h5 *ngIf="(embryoService.localStorageCartProducts && embryoService.localStorageCartProducts.length>0); else elseCartBlock;">Tienes {{embryoService.localStorageCartProducts.length}} producto(s) en tu carrito</h5>
           <ng-template #elseCartBlock>
               <div class="section-gap-lg text-center">
                   <div class="mb-4">

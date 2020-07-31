@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { ProductosService } from 'src/app/Services/productos.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs/operators';
+import { ToastaService, ToastaConfig, ToastOptions, ToastData } from 'ngx-toasta';
+import { Router, ActivatedRoute, Params }   from '@angular/router';
 
 @Component({
    selector: 'app-add-product',
@@ -50,14 +52,17 @@ export class AddProductComponent implements OnInit {
       public formBuilder: FormBuilder
       , private listaSrv: ListasService
       , private dataSrv: ProductosService
-      // , private spinner: NgxSpinnerService
+      ,private toastyService: ToastaService
+      ,private toastyConfig: ToastaConfig
+      ,private router: Router// , private spinner: NgxSpinnerService
    ) { }
 
    ngOnInit() {
 
       this.categorias = this.listaSrv.getData( 'SYS_CATEGO' );
       this.subcategorias = this.listaSrv.getData( 'SYS_SUBCAT' );
-
+      this.toastyConfig.position = 'top-right';
+    	this.toastyConfig.theme = 'material';
 
       this.mainImgPath = this.data[0].image;
       this.form = this.formBuilder.group({
@@ -120,8 +125,13 @@ export class AddProductComponent implements OnInit {
 
    saveProduct( ev: any ) {
 
-      // this.spinner.show();
-      // console.log( this.form.value.image.filter( (x: any ) => x.image !== 'https://via.placeholder.com/625x800' ) );
+      const toastOptionWait: ToastOptions = {
+			title: 'Producto',
+			msg: 'Creando producto',
+			theme: 'material'
+		};
+
+		this.toastyService.wait(toastOptionWait);
 
       this.form.value.image = this.form.value.image.filter( (x: any ) => x.image !== 'https://via.placeholder.com/625x800' );
 
@@ -131,8 +141,17 @@ export class AddProductComponent implements OnInit {
       )
       .subscribe(
       ( res: any ) => {
-         alert( res );
-         this.form.reset();
+         this.toastyService.clearAll();
+
+		   	const toastOptionSuccess: ToastOptions = {
+				title: 'Producto',
+				msg: res,
+				theme: 'material'
+		 	};
+
+			this.toastyService.success(toastOptionSuccess);
+		  
+			this.router.navigate(['/admin-panel/products'])
       },
       ( err: any ) => {
          alert( 'ERROR :: NO SE PUDO GUARDAR EL PRODUCTO' );

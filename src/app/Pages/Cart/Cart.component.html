@@ -1,5 +1,5 @@
 
-<embryo-PageTitle heading="Here’s what’s in your bag." subHeading="Our latest news and learning articles."></embryo-PageTitle>
+<embryo-PageTitle heading="Aquí está lo que hay en tu carrito." subHeading="Our latest news and learning articles."></embryo-PageTitle>
 
 <div class="inner-container bg-white cart-page section-gap" *ngIf="(embryoService.localStorageCartProducts && embryoService.localStorageCartProducts.length>0); else elseBlock">
   <div class="container">
@@ -17,12 +17,12 @@
             <div fxLayout='row wrap' fxLayoutAlign="center center" class="cart-product-info">
               <div fxFlex.xs="100" fxFlex.sm="40" fxFlex.md="30" fxFlex.lg="40" fxFlex.xl="40">
                 <h5>{{product?.name}}</h5>
-                <p class="mb-0">Delivery in 3-4 days | Free</p>
-                <p> 10 Days Replacement Policy</p>
+                <p class="mb-0"></p>
+                <p></p>
               </div>
               <div fxFlex.xs="50" fxFlex.sm="20" fxFlex.md="20" fxFlex.lg="20" fxFlex.xl="20">
                 <mat-form-field class="w-100">
-                  <input  matInput type="number" #quantity [value]="getQuantityValue(product)" min="1" max="10" placeholder="Quantity">
+                  <input  matInput type="number" #quantity [value]="getQuantityValue(product)" min="1" max="10" placeholder="Cantidad">
                 </mat-form-field>
               </div>
               <div fxFlex.xs="50" fxFlex.sm="40" fxFlex.md="30" fxFlex.lg="20" fxFlex.xl="20">
@@ -57,7 +57,7 @@
             <h4>Total</h4><span fxFlex></span>
             <h4> {{getTotalPrice() | currency:embryoService?.currency}}</h4>
           </div>
-          <div> <span fxFlex></span><button mat-raised-button color="accent" class="button-lg" (click)="updateLocalCartProduct()">Checkout</button></div>
+          <div> <span fxFlex></span><button mat-raised-button color="accent" class="button-lg" (click)="updateLocalCartProduct()">Cotizar</button></div>
         </div>
       </div>
     </div>

@@ -1,16 +1,16 @@
-<embryo-PageTitle heading="Payment Information"></embryo-PageTitle>
+<embryo-PageTitle heading="Cotizaciones"></embryo-PageTitle>
 
 <div class="inner-container section-gap" *ngIf="(embryoService.localStorageCartProducts && embryoService.localStorageCartProducts.length>0); else elseBlock">
    <div class="checkout-option">
     <div class="container">
     <div class="view-cart text-right mb-5">
-      <button mat-raised-button color="accent" (click)="toggleRightSidenav()">Show Order Detail : {{getCartProducts() | currency:embryoService?.currency}}</button>
+      <button mat-raised-button color="accent" (click)="toggleRightSidenav()">Mostrar detalle de los productos : {{getCartProducts() | currency:embryoService?.currency}}</button>
     </div>
       <mat-accordion class="mat-ex-wrapper">
         <form card container=".card-container" [formGroup] = "paymentFormOne">
           <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
             <mat-expansion-panel-header>
-              <h4 class="mb-0">Enter Your Shipping Address</h4>
+              <h4 class="mb-0">Datos personales</h4>
             </mat-expansion-panel-header>
             <div fxLayout="row wrap" fxLayoutAlign="none" class="col-gap" formGroupName="user_details">
               <div fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100">
@@ -18,7 +18,7 @@
                     <div fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
                       <div class="mb-2">
                         <mat-form-field class="w-100">
-                          <input matInput type="text" placeholder="First Name" formControlName="first_name" required>
+                          <input matInput type="text" placeholder="Nombres" formControlName="first_name" required>
                           <mat-error *ngIf="paymentFormOne.get('user_details.first_name').hasError('required') && paymentFormOne.get('user_details.first_name').touched">This field should not be empty.</mat-error>
                         </mat-form-field>
                       </div>
@@ -26,7 +26,7 @@
                     <div fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
                       <div class="mb-2">
                         <mat-form-field class="w-100">
-                          <input matInput type="text" placeholder="Last Name" formControlName="last_name" required>
+                          <input matInput type="text" placeholder="Apellidos" formControlName="last_name" required>
                           <mat-error *ngIf="paymentFormOne.get('user_details.last_name').hasError('required') && paymentFormOne.get('user_details.last_name').touched">This field should not be empty.</mat-error>
                         </mat-form-field>
                       </div>
@@ -36,7 +36,7 @@
                     <div fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
                       <div class="mb-2">
                         <mat-form-field class="w-100">
-                          <input matInput type="text" placeholder="City and State" formControlName="city_state" required>
+                          <input matInput type="text" placeholder="Ciudad" formControlName="city_state" required>
                           <mat-error *ngIf="paymentFormOne.get('user_details.city_state').hasError('required') && paymentFormOne.get('user_details.city_state').touched">This field should not be empty.</mat-error>
                         </mat-form-field>
                       </div>
@@ -44,18 +44,18 @@
                     <div fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
                       <div class="mb-2">
                         <mat-form-field class="w-100">
-                          <input matInput type="text" placeholder="Country" formControlName="country" required>
+                          <input matInput type="text" placeholder="Pais" formControlName="country" required>
                           <mat-error *ngIf="paymentFormOne.get('user_details.country').hasError('required') && paymentFormOne.get('user_details.country').touched">This field should not be empty.</mat-error>
                         </mat-form-field>
                       </div>
                     </div>
                   </div>
-                  <h4>Enter Your Contact Infomation</h4>
+                  <h4>Información para contactarte</h4>
                   <div fxLayout="row wrap" fxLayoutAlign="none" class="col-gap">
                     <div fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">
                       <div class="mb-2">
                         <mat-form-field class="w-100">
-                          <input matInput type="number" placeholder="Mobile" formControlName="mobile" required>
+                          <input matInput type="number" placeholder="Teléfono" formControlName="mobile" required>
                           <mat-error *ngIf="paymentFormOne.get('user_details.mobile').hasError('required') && paymentFormOne.get('user_details.mobile').touched">This field should not be empty.</mat-error>
                         </mat-form-field>
                       </div>
@@ -72,7 +72,7 @@
                   </div>
                   <div fxLayout="row wrap" fxLayoutAlign="none" class="col-gap">
                     <div fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50">                     
-                      <button color="accent" class="button-lg" mat-raised-button type="button" (click)="submitPayment()">Continue to Payment </button>
+                      <button color="accent" class="button-lg" mat-raised-button type="button" (click)="submitPayment()">Enviar para cotizar</button>
                     </div>
                   </div>
               </div>
