@@ -1,7 +1,7 @@
  export const environment = {
    production: true,
-   apiUrl: 'http://discode.net/apilaravel/api',
-   apiImg: 'http://discode.net/imgcommerce',
+   apiUrl: 'https://discode.net/apilaravel/api',
+   apiImg: 'https://discode.net/imgcommerce',
    firebase: {
     	apiKey: "AIzaSyAWIUjgtFYTu7gnOQcHddfXhoA0Te6sAHA",
 		authDomain: "embryo-angular.firebaseapp.com",
