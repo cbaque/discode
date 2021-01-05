@@ -109,7 +109,7 @@
                                  <button mat-icon-button (click) ="onEditProduct(element)" color="primary">
                                     <i class="material-icons">edit</i>
                                  </button> 
-                                 <button color="warn" mat-icon-button (click)="deleteProduct(i)">
+                                 <button color="warn" mat-icon-button (click)="deleteProduct(i, element.id_producto)">
                                     <mat-icon class="">delete</mat-icon>
                                  </button>
                               </td>
@@ -135,7 +135,7 @@
                   <img width="626" height="800" mat-card-image src="{{ IMG }}/{{product.image}}" alt="Photo of a Shiba Inu">
                </a>
                <div class="wishlist-icon">
-                  <a (click)="deleteProduct(i)"><mat-icon> delete </mat-icon></a>
+                  <a (click)="deleteProduct(i, product.id_producto)"><mat-icon> delete </mat-icon></a>
                </div>
                <!-- wishlist-icon-->
                <mat-card-content class="product-content relative">

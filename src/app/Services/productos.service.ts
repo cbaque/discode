@@ -25,6 +25,10 @@ export class ProductosService {
     return this.envSer.postQuery<Data>(`/producto/edit`, data);
   }
 
+  public deleteProducto(data: any) {
+    return this.envSer.postQuery<Data>(`/producto/delete`, data);
+  }
+
   // public setProductoImage(data: any) {
   //   return this.envSer.postQueryImage<Data>(`/producto/create`, data);
   // }

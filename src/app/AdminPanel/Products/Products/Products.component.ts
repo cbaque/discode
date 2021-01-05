@@ -91,25 +91,37 @@ export class ProductsComponent implements OnInit {
 	/* 
      *deleteProduct method is used to open a delete dialog.
      */
-   deleteProduct(i){
-      this.adminPanelService.deleteDialog("Are you sure you want to delete this product permanently?").
-         subscribe( res => {this.popUpDeleteUserResponse = res},
+   deleteProduct(i: number, id: number){
+	   
+      this.adminPanelService.deleteDialog("¿Esta seguro de Eliminar Producto?").
+         subscribe( res => { this.popUpDeleteUserResponse = res },
                     err => console.log(err),
-                    ()  => this.getDeleteResponse(this.popUpDeleteUserResponse,i))
+                    ()  => this.getDeleteResponse(this.popUpDeleteUserResponse,i, id))
    }
 
    /**
      * getDeleteResponse method is used to delete a product from the product list.
      */
-   getDeleteResponse(response : string,i){
-      if(response == "yes"){
-      	if(this.showType == 'grid') {
-         	this.productsGrid.splice(i,1);
-      	}else if(this.showType == 'list'){
-				this.productsList.data.splice(i,1);
-				this.productsList = new MatTableDataSource(this.productsList.data);
-      		this.productsList.paginator = this.paginator;
-      	}
-      }
+   getDeleteResponse(response : string,i: number, id: number){
+
+		if(response == "yes") {
+			this.productoSrv.deleteProducto( { id_producto: id } )
+			.subscribe(res => {
+				
+				if(this.showType == 'grid') {
+	
+					this.productsGrid.splice(i,1);
+					
+				}else if(this.showType == 'list') {
+	
+					this.productsList.data.splice(i,1);
+					this.productsList = new MatTableDataSource(this.productsList.data);
+					this.productsList.paginator = this.paginator;
+	
+				}
+
+			});
+
+		}
    }
 }
